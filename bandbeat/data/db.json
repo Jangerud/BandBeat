@@ -1,7 +1,0 @@
-{
-    "users": [
-        {"email": "johan@bandbeat.com", "id": 1, "guitar": true, "piano": false, "base": false, "singer": true, "drums": false},
-        {"email": "nicklas@bandbeat.com", "id": 2, "guitar": true, "piano": false, "base": true, "singer": false, "drums": false},
-        {"email": "calle@bandbeat.com", "id": 3, "guitar": true, "piano": true, "base": false, "singer": false, "drums": true}
-    ]
-}

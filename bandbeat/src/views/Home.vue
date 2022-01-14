@@ -23,6 +23,7 @@ export default {
 body {
   background-image: url('../assets/mainbackground.jpg');
   background-size: 100%;
+  background-attachment: fixed;
 }
 .logo h1{
   background: #FFFFFF;

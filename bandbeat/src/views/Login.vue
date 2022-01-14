@@ -6,40 +6,45 @@
 
   <label>Password</label>
   <input type="password" required v-model="password">
+  <div v-if="passwordError" class="error">{{ passwordError }}</div>
 
   <div class="buttons">
     <Button class="btn1" @click="registerRedirect">Register</Button>
-    <Button class="btn2" @click="loginRedirect">Login</Button>
+    <Button class="btn2" @click="handleLogin">Login</Button>
   </div>
 </form>
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
 import Button from '../components/Button.vue'
 
 export default {
 
-setup() {
-    // const email: ref(email),
-    // const password = ref(null)
+data() {
+    return {
+        users: [],
+        email: '',
+        password: '',
+        passwordError: '',
+    }
 },
 components: { Button },
 methods: {
-    methods: {
-        loginRedirect() {
+        handleLogin() {
+            this.passwordError = this.password.length > 5 ? '' : 'Password must be at least 6 characters long!'
+            // Check for users in the usersArray with the email and password provided by the user.
             this.$router.push({ name: 'AccountPage'})
         },
         registerRedirect() {
+            // Redirect to the register page to register a new user.
             this.$router.push({name: 'Register'})
         },
-    }
 },
 mounted() {
-    fetch('http://localhost:3000/users')
-        .then(res => res.json())
-        .then(data => this.users = data)
-        .catch(err => console.log(err.message))
+    // fetch('http://localhost:3000/users')
+    //     .then(res => res.json())
+    //     .then(data => this.users = data)
+    //     .catch(err => console.log(err.message))
 }
 }
 </script>
@@ -89,5 +94,11 @@ label {
 }
 .btn2 {
     float: right;
+}
+.error {
+    color: tomato;
+    margin-top: 10px;
+    font-size: 0.8em;
+    font-weight: bold;
 }
 </style>
