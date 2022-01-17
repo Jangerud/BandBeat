@@ -12,6 +12,7 @@
 
       <label>Password</label>
       <input type="password" required v-model="password">
+      <div class="error">{{ error }}</div>
       <button>Sign up</button>
   </form>
 </template>
@@ -31,10 +32,11 @@ setup() {
     const password = ref('')
 
     const handleSubmit = async() => {
-        await signup(email.value, password.value, firstname.value, lastname.value)
+        await signup( firstname.value, lastname.value, email.value, password.value)
+        console.log('user signed up!')
     }
 
-    return { firstname, lastname, email, password, handleSubmit}
+    return { firstname, lastname, email, password, handleSubmit, error}
 }
 }
 </script>
