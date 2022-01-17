@@ -2,50 +2,55 @@
 <form @submit.prevent="handleSubmit">
   <h1>Welcome to BandBeat</h1>
   <label>Email</label>
-  <input type="email" required v-model="email">
+  <input type="email" required v-model="email" placeholder="Email@adress.com">
 
   <label>Password</label>
-  <input type="password" required v-model="password">
-  <div v-if="passwordError" class="error">{{ passwordError }}</div>
+  <input type="password" required v-model="password" placeholder="Password">
+  <div class="error">{{ error }}</div>
 
   <div class="buttons">
     <Button class="btn1" @click="registerRedirect">Register</Button>
-    <Button class="btn2" @click="handleLogin">Login</Button>
+    <Button class="btn2">Login</Button>
   </div>
 </form>
 </template>
 
 <script>
+import { ref } from '@vue/reactivity'
 import Button from '../components/Button.vue'
+import useLogin from '../composables/useLogin'
 
 export default {
+setup() {
+    //refs
+    const email = ref('')
+    const password = ref('')
+    const errorMessage = ref('')
 
-data() {
-    return {
-        users: [],
-        email: '',
-        password: '',
-        passwordError: '',
+    const { error, login} = useLogin()
+
+    const handleSubmit = async () => {
+        await login(email.value, password.value)
+        if (!error.value) {
+            console.log('user logged in!')
+        }
     }
+
+    return { email, password, handleSubmit, error }
 },
 components: { Button },
 methods: {
-        handleLogin() {
-            this.passwordError = this.password.length > 5 ? '' : 'Password must be at least 6 characters long!'
-            // Check for users in the usersArray with the email and password provided by the user.
-            this.$router.push({ name: 'AccountPage'})
-        },
+        //handleLogin() {
+        //     this.passwordError = this.password.length > 5 ? '' : 'Password must be at least 6 characters long!'
+        //     // Check for users in the usersArray with the email and password provided by the user.
+        //     this.$router.push({ name: 'AccountPage'})
+        // },
+        
         registerRedirect() {
             // Redirect to the register page to register a new user.
             this.$router.push({name: 'Register'})
         },
 },
-mounted() {
-    // fetch('http://localhost:3000/users')
-    //     .then(res => res.json())
-    //     .then(data => this.users = data)
-    //     .catch(err => console.log(err.message))
-}
 }
 </script>
 
