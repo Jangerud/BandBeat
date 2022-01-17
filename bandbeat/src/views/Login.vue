@@ -1,4 +1,6 @@
 <template>
+<div class="formscontainer">
+<div v-if="showLogin">
 <form @submit.prevent="handleSubmit">
   <h1>Welcome to BandBeat</h1>
   <label>Email</label>
@@ -9,16 +11,23 @@
   <div class="error">{{ error }}</div>
 
   <div class="buttons">
-    <Button class="btn1" @click="registerRedirect">Register</Button>
+    <Button class="btn1" @click="showLogin = false">Sign up</Button>
     <Button class="btn2">Login</Button>
   </div>
 </form>
+</div>
+<div v-else>
+    <SignupForm />
+    <p>Already registered? <span @click="showLogin = true">Login</span> instead!</p>
+</div>
+</div>
 </template>
 
 <script>
 import { ref } from '@vue/reactivity'
 import Button from '../components/Button.vue'
 import useLogin from '../composables/useLogin'
+import SignupForm from '../components/SignupForm.vue'
 
 export default {
 setup() {
@@ -26,6 +35,8 @@ setup() {
     const email = ref('')
     const password = ref('')
     const errorMessage = ref('')
+    const showLogin = ref(true)
+    const showSignup = ref(false)
 
     const { error, login} = useLogin()
 
@@ -36,26 +47,15 @@ setup() {
         }
     }
 
-    return { email, password, handleSubmit, error }
+    return { email, password, handleSubmit, error, showSignup, showLogin }
 },
-components: { Button },
-methods: {
-        //handleLogin() {
-        //     this.passwordError = this.password.length > 5 ? '' : 'Password must be at least 6 characters long!'
-        //     // Check for users in the usersArray with the email and password provided by the user.
-        //     this.$router.push({ name: 'AccountPage'})
-        // },
-        
-        registerRedirect() {
-            // Redirect to the register page to register a new user.
-            this.$router.push({name: 'Register'})
-        },
-},
+components: { Button, SignupForm },
+methods: {},
 }
 </script>
 
 <style>
-form {
+.formscontainer {
     max-width: 420px;
     margin: 250px auto;
     background: white;
@@ -96,14 +96,25 @@ label {
 }
 .btn1 {
     float: left;
+    margin: 20px auto;
 }
 .btn2 {
     float: right;
+    margin: 20px auto;
 }
 .error {
     color: tomato;
     margin-top: 10px;
     font-size: 0.8em;
     font-weight: bold;
+}
+p {
+    color: #555;
+    text-align: center;
+}
+.formscontainer span{
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
 }
 </style>
