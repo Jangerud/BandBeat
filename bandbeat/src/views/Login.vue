@@ -1,7 +1,7 @@
 <template>
 <div class="formscontainer">
 <div v-if="showLogin">
-<form @submit.prevent="handleSubmit">
+<form @submit.prevent="handleSubmit" >
   <h1>Welcome to BandBeat</h1>
   <label>Email</label>
   <input type="email" required v-model="email" placeholder="Email@adress.com">
@@ -17,7 +17,7 @@
 </form>
 </div>
 <div v-else>
-    <SignupForm />
+    <SignupForm @signup="enterPage"/>
     <p>Already registered? <span @click="showLogin = true">Login</span> instead!</p>
 </div>
 </div>
@@ -28,29 +28,33 @@ import { ref } from '@vue/reactivity'
 import Button from '../components/Button.vue'
 import useLogin from '../composables/useLogin'
 import SignupForm from '../components/SignupForm.vue'
+import { useRouter } from 'vue-router'
 
 export default {
-setup() {
+setup(props, context) {
     //refs
     const email = ref('')
     const password = ref('')
-    const errorMessage = ref('')
     const showLogin = ref(true)
-    const showSignup = ref(false)
+    const router = useRouter()
 
     const { error, login} = useLogin()
 
-    const handleSubmit = async () => {
+    const enterPage = () => {
+        router.push({ name: 'AccountPage' })
+    }
+
+    const handleSubmit = async() => {
         await login(email.value, password.value)
         if (!error.value) {
-            console.log('user logged in!')
+            enterPage()
+            console.log(email.value, password.value)
         }
     }
 
-    return { email, password, handleSubmit, error, showSignup, showLogin }
+    return { email, password, handleSubmit, error, showLogin, enterPage }
 },
 components: { Button, SignupForm },
-methods: {},
 }
 </script>
 
