@@ -5,6 +5,9 @@
 <div class="formscontainer">
 <form>
   <h1>Account info</h1>
+  <label>Nickname</label>
+  <input type="text">
+  
   <label>Firstname</label>
 
   <label>Lastname</label>
@@ -22,9 +25,17 @@
 
 <script>
 import Navbar from '../components/Navbar.vue'
+import getUser from '../composables/getUser'
 
 export default {
-   components: { Navbar }
+  setup() {
+    const { user } = getUser()
+
+    // const userNick = ref('')
+
+    return { user }
+  },
+   components: { Navbar },
 
 }
 </script>

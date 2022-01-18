@@ -28,14 +28,14 @@ export default {
   background-attachment: fixed;
 }
 .logo h1{
-  background: #FFFFFF;
+  background: hsl(27, 37%, 51%);
   opacity: 67%;
   padding: 10px;
   border-radius: 10px;
   margin: 350px auto;
   max-width: 200px;
   cursor: pointer;
-  color: #444;
+  color: rgb(2, 1, 1);
 }
 .logo h1:hover{
   background: #ddd;
