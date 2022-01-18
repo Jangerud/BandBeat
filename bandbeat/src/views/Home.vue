@@ -1,8 +1,10 @@
 <template>
+<div class="backPic">
   <div class="home">
     <div class="logo">
       <h1 @click="redirect">BandBeat</h1>
     </div>
+  </div>
   </div>
 </template>
 
@@ -20,8 +22,8 @@ export default {
 </script>
 
 <style>
-body {
-  background-image: url('../assets/mainbackground.jpg');
+.backPic {
+  background-image: url('../assets/notesbackground.jpg');
   background-size: 100%;
   background-attachment: fixed;
 }
