@@ -4,6 +4,11 @@
           <p>{{ user.displayName }}</p>
           <p class="email">Currently logged in as: {{ user.email }}</p>
       </div>
+      <div class="pages">
+          <h2 class="account">Account</h2>
+          <h2 class="chat">Chat</h2>
+          <h2 class="about">About</h2>
+      </div>
     <button @click="handleLogout">Logout</button>
   </nav>
 </template>
@@ -25,6 +30,7 @@ export default {
             await logout()
             if(!error.value){
                 router.push({ name: 'Home' })
+                user.value = null
                 console.log('User logged out!')
             }
         }
@@ -50,5 +56,19 @@ nav p {
 nav p.email {
     font-size: 14px;
     color: #999;
+}
+.pages{
+    align-content: center;
+    display: flex;
+    justify-items: space-between;
+}
+.account {
+    margin: 50px;
+}
+.about {
+    margin: 50px;
+}
+.chat {
+    margin: 50px;
 }
 </style>

@@ -9,17 +9,25 @@
   <input type="text">
   
   <label>Firstname</label>
+  <input type="text">
 
   <label>Lastname</label>
+  <input type="text">
 
   <label>Age</label>
+  <input type="text">
 
   <label>City</label>
+  <input type="text">
 
   <label>Email</label>
+  <input type="text">
 
 
 </form>
+<div class="instruments">
+  <h3>Instruments</h3>
+</div>
 </div>
 </template>
 
@@ -31,7 +39,6 @@ export default {
   setup() {
     const { user } = getUser()
 
-    // const userNick = ref('')
 
     return { user }
   },
@@ -48,7 +55,7 @@ body {
 }
 .formscontainer {
     max-width: 420px;
-    margin: 250px auto;
+    margin: 100px auto;
     background: white;
     text-align: left;
     padding: 40px;
@@ -67,6 +74,9 @@ input, select {
     border-bottom: 1px solid #ddd;
     color: #555;
 }
+.instruments {
+  text-align: center;
+}
 label {
     color: #aaa;
     display: inline-block;
@@ -78,7 +88,6 @@ label {
 }
 .navcontainer {
     width: 100%;
-    max-width: 960px;
     margin: 20px auto;
     background: white;
     border-radius: 20px;

@@ -17,7 +17,7 @@
 </form>
 </div>
 <div v-else>
-    <SignupForm @signup="enterPage"/>
+    <SignupForm @signup="showLogin = true"/>
     <p>Already registered? <span @click="showLogin = true">Login</span> instead!</p>
 </div>
 </div>
