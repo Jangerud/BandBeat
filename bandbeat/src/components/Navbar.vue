@@ -5,9 +5,9 @@
           <p class="email">Currently logged in as: {{ user.email }}</p>
       </div>
       <div class="pages">
-          <h2 class="account">Account</h2>
-          <h2 class="chat">Chat</h2>
-          <h2 class="about">About</h2>
+          <router-link :to="{ name: 'AccountPage'}">Account</router-link>
+          <router-link :to="{ name: ''}">Chat</router-link>
+          <router-link :to="{ name: ''}">About</router-link>
       </div>
     <button @click="handleLogout">Logout</button>
   </nav>
@@ -57,18 +57,18 @@ nav p.email {
     font-size: 14px;
     color: #999;
 }
-.pages{
-    align-content: center;
-    display: flex;
-    justify-items: space-between;
+.pages a{
+    display: inline-block;
+    text-decoration: none;
+    margin: 0 10px;
+    color: #999;
+    font-size: 18px;
 }
-.account {
-    margin: 50px;
+a.router-link-active {
+    border-bottom: 2px solid hsl(27, 37%, 51%);
+    padding-bottom: 4px;
 }
-.about {
-    margin: 50px;
-}
-.chat {
-    margin: 50px;
+.pages a:hover{
+    color: #777;
 }
 </style>
