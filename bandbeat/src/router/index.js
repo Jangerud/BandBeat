@@ -2,6 +2,17 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import AccountPage from '../views/AccountPage'
+import { projectAuth } from '../firebase/config'
+
+// auth guard
+const requireAuthentication = (to, from, next) => {
+  let user = projectAuth.currentUser
+  if(!user) {
+    next({ name: 'Login'})
+  }else {
+    next()
+  }
+}
 
 const routes = [
   {
@@ -17,7 +28,8 @@ const routes = [
   {
     path: '/account',
     name: 'AccountPage',
-    component: AccountPage
+    component: AccountPage,
+    beforeEnter: requireAuthentication
   },
 ]
 

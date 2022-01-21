@@ -19,6 +19,13 @@ const signup = async (displayName, firstname, lastname, email, password) => {
      await response.user.updateProfile({ firstname, lastname, displayName})
      const database = projectFirestore.collection("users").doc(response.user.uid)
         await database.set({
+            drumset: false,
+            flute: false,
+            guitar: false,
+            piano: false,
+            saxophone: false,
+            sing: false,
+            trumpet: false,
             age: "",
             city: "",
             email: userEmail,

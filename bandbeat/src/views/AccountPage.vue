@@ -2,7 +2,7 @@
 <div class="navcontainer">
   <Navbar />
 </div>
-<div class="formscontainer">
+<div class="accountformscontainer">
 
   <div class="userInformation">
     <form>
@@ -25,28 +25,65 @@
     <label>Email</label>
     <input type="text">
 
+    <Button>Update</Button>
+
 
     </form>
   </div>
   <div class="instruments">
-    <form class="instruments">
-      <h3>Instruments</h3>
+    <div class="instrumentsForm">
+      <h1>Instruments</h1>
       <p>Click on the instrument you are proficient with!</p>
     <div class="availableInstruments">
       <h4>Available instruments</h4>
-      <img src="../assets/guitar.png" /><span >Guitar</span>
-      <img src="../assets/flute.png" />
-      <img src="../assets/drumset.png" />
-      <img src="../assets/piano.png" />
-      <img src="../assets/saxophone.png" />
-      <img src="../assets/sing.png" />
-      <img src="../assets/trumpet.png" />
+      <div v-if="!checkValue">
+        <img  src="../assets/guitar.png" @click="switchGuitar"/>
+      </div>
+      <div v-if="!showFlute">
+        <img src="../assets/flute.png" @click="switchFlute"/>
+      </div>
+      <div v-if="!showDrumset">
+        <img src="../assets/drumset.png" @click="switchDrumset"/>
+      </div>
+      <div v-if="!showPiano">
+        <img src="../assets/piano.png" @click="switchPiano"/>
+      </div>
+      <div v-if="!showSaxophone">
+        <img src="../assets/saxophone.png" @click="switchSaxophone"/>
+      </div>
+      <div v-if="!showSing">
+        <img src="../assets/sing.png" @click="switchSing"/>
+      </div>
+      <div v-if="!showTrumpet">
+        <img src="../assets/trumpet.png" @click="switchTrumpet"/> 
+      </div>
     </div>
     <div class="chosenInstruments">
-      <h4>Your chosen instruments</h4>
+      <h4>Chosen instruments</h4>
+      <div v-if="showGuitar" class="chosenGuitarVisible">
+        <img  src="../assets/guitar.png" @click="switchGuitar"/>
+      </div>
+      <div v-if="showFlute">
+        <img src="../assets/flute.png" @click="switchFlute"/>
+      </div>
+      <div v-if="showDrumset">
+        <img src="../assets/drumset.png" @click="switchDrumset"/>
+      </div>
+      <div v-if="showPiano">
+        <img src="../assets/piano.png" @click="switchPiano"/>
+      </div>
+      <div v-if="showSaxophone">
+        <img src="../assets/saxophone.png" @click="switchSaxophone"/>
+      </div>
+      <div v-if="showSing">
+        <img src="../assets/sing.png" @click="switchSing"/>
+      </div>
+      <div v-if="showTrumpet">
+        <img src="../assets/trumpet.png" @click="switchTrumpet"/> 
+      </div>
     </div>
     
-    </form>
+    </div>
   </div>
 </div>
 </template>
@@ -54,15 +91,51 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 import getUser from '../composables/getUser'
+import Button from '../components/Button.vue'
 
 export default {
-  setup() {
-    const { user } = getUser()
+  data() {
+    return {
+      user:  getUser(),
+      showGuitar: false,
+      showFlute: false,
+      showPiano: false,
+      showDrumset: false,
+      showSaxophone: false,
+      showSing: false,
+      showTrumpet: false
 
-
-    return { user }
+    }
   },
-   components: { Navbar },
+   components: { Navbar, Button },
+   methods: {
+     switchGuitar() {
+       this.showGuitar = !this.showGuitar
+     },
+     switchPiano() {
+       this.showPiano = !this.showPiano
+     },
+     switchFlute() {
+       this.showFlute = !this.showFlute
+     },
+     switchDrumset() {
+       this.showDrumset = !this.showDrumset
+     },
+     switchSaxophone() {
+       this.showSaxophone = !this.showSaxophone
+     },
+     switchSing() {
+       this.showSing = !this.showSing
+     },
+     switchTrumpet() {
+       this.showTrumpet = !this.showTrumpet
+     },
+   },
+   computed: {
+     checkValue : function() {
+       return this.showGuitar
+     }
+   }
 
 }
 </script>
@@ -73,9 +146,16 @@ body {
   background-size: 100%;
   background-attachment: fixed;
 }
-.formscontainer {
+img {
+  cursor: pointer;
+}
+.accountformscontainer {
     width: 100%;
     display: flex;
+}
+.accountformscontainer button{
+  margin-top: 40px;
+  float: right;
 }
 form h1{
     text-align: center;
@@ -94,17 +174,19 @@ input, select {
     color: #555;
 }
 .userInformation {
-  max-width: 420px;
+  width: 30%;
   margin: 100px auto;
   background: white;
   text-align: left;
   padding: 40px;
   border-radius: 10px;
   color: #aaa;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.05);
   float: left;
 }
 .instruments {
-  max-width: 420px;
+  width: 30%;
+  display: flex;
   margin: 100px auto;
   background: white;
   text-align: left;
@@ -112,7 +194,14 @@ input, select {
   border-radius: 10px;
   color: #aaa;
   text-align: center;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.05);
   float: right;
+}
+.instrumentsForm {
+  display: grid;
+}
+.availableinstruments {
+  flex-direction: row;
 }
 label {
   color: #aaa;
