@@ -1,4 +1,5 @@
 <template>
+<!-- This is the button component that will be a generic button for the whole website. -->
   <button class="button">
       <slot></slot>
   </button>

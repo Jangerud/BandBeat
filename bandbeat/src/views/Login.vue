@@ -1,4 +1,6 @@
 <template>
+<!-- This is the Login view. Instead of having two different views I used two different divs that will be shown if one or the other argument is true.
+If the signup form argument is true then the SignupForm component will be viewed and not the login form. -->
 <div class="formscontainer">
 <div v-if="showLogin">
 <form @submit.prevent="handleSubmit" >
@@ -10,6 +12,8 @@
   <input type="password" required v-model="password" placeholder="Password">
   <div class="error">{{ error }}</div>
 
+<!-- The signup button just switches the viewable content of the view to the signupForm.
+While the Login button starts the submit of the view and activates the handleSubmit function. -->
   <div class="buttons">
     <Button class="btn1" @click="showLogin = false">Sign up</Button>
     <Button class="btn2">Login</Button>
@@ -24,6 +28,7 @@
 </template>
 
 <script>
+// imports to make the components work aswell as the different variables.
 import { ref } from '@vue/reactivity'
 import Button from '../components/Button.vue'
 import useLogin from '../composables/useLogin'
@@ -40,10 +45,12 @@ setup(props, context) {
 
     const { error, login} = useLogin()
 
+    // A const that takes a function to push the user to a different route, in this case the account page.
     const enterPage = () => {
         router.push({ name: 'AccountPage' })
     }
 
+    // The handleSubmit const will await the response from the login function and if the error value is still null then it will use the function enterPage.
     const handleSubmit = async() => {
         await login(email.value, password.value)
         if (!error.value) {
@@ -54,6 +61,7 @@ setup(props, context) {
 
     return { email, password, handleSubmit, error, showLogin, enterPage }
 },
+// imported components are declared here.
 components: { Button, SignupForm },
 }
 </script>

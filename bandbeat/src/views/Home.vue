@@ -1,4 +1,5 @@
 <template>
+<!-- This is the home view that's the "welcome" view when visiting the website. -->
 <div class="backPic">
   <div class="home">
     <div class="logo">
@@ -13,6 +14,7 @@
 export default {
   name: 'Home',
   components: {},
+  // We use a method that's in the h1 element, which will redirect the visitor to the Login view.
   methods: {
     redirect() {
       this.$router.push({ name: 'Login'})

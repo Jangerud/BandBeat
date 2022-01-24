@@ -1,7 +1,9 @@
+// This is the config file for the connection with the firebase database. First we import the firebase components.
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/firestore'
 import 'firebase/compat/auth'
 
+// Here we set the firebaseConfig with the different authentication settings so we can use it to initialize a connection.
 const firebaseConfig = {
     apiKey: "AIzaSyAe6oWUeyHR-oQ8pdAH-0gphSOzap4CcBw",
     authDomain: "bandbeat-916b5.firebaseapp.com",

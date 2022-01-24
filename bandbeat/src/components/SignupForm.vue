@@ -1,4 +1,6 @@
 <template>
+<!-- This is the signup form where we force the user to type in the required fields and then apply the values to variables in order to 
+save these in the firebase database and in doing so, create a new user. -->
   <form @submit.prevent="handleSubmit">
       <h1>Sign up!</h1>
       <label>Nickname</label>
@@ -21,6 +23,8 @@
 </template>
 
 <script>
+// We use ref that comes with the setup hook which we bind with the v-model to various variables like displayName.
+// useSignup is a composable that handles the "registration/creation" of a new user to the firebase database.
 import { ref } from '@vue/reactivity'
 import useSignup from '../composables/useSignup'
 
@@ -35,7 +39,8 @@ setup(props, context) {
     const email = ref('')
     const password = ref('')
     
-
+    // In the handleSubmit we have async to await response from the database and then use context.emit to pass the signup "signal" to the Login view.
+    // Which in turn will trigger the login divs to display again.
     const handleSubmit = async() => {
         await signup( displayName.value, firstname.value, lastname.value, email.value, password.value)
         if (!error.value) {

@@ -1,14 +1,17 @@
 <template>
+<!-- This class is the account page where the user has the settings for his account. -->
 <div class="navcontainer">
   <Navbar />
 </div>
 <div class="accountformscontainer">
 
+  <!-- We use a form in order to process the information that the user types in. the @submit.prevent is there to prevent it from processing the information
+  without pressing the update button. -->
   <div class="userInformation">
-    <form>
+    <form @submit.prevent="handleSubmit">
     <h1>Account info</h1>
     <label>Nickname</label>
-    <input type="text">
+    <input type="text" :placeholder="user.displayName">
     
     <label>Firstname</label>
     <input type="text">
@@ -30,13 +33,16 @@
 
     </form>
   </div>
+  <!-- Here we use v-if checks in order to switch the instruments between to div containers. Depending on which the user wants them in.
+  So if the user knows guitar then the user clicks on the guitar and it is shown in the "chosen instruments div". If they missclick they can simply
+  click it again in order for it to pop back up to it's original position. -->
   <div class="instruments">
-    <div class="instrumentsForm">
+    <div class="instrumentsContainer">
       <h1>Instruments</h1>
       <p>Click on the instrument you are proficient with!</p>
     <div class="availableInstruments">
       <h4>Available instruments</h4>
-      <div v-if="!checkValue">
+      <div v-if="!showGuitar">
         <img  src="../assets/guitar.png" @click="switchGuitar"/>
       </div>
       <div v-if="!showFlute">
@@ -58,6 +64,7 @@
         <img src="../assets/trumpet.png" @click="switchTrumpet"/> 
       </div>
     </div>
+    <!-- This is where the chosen instruments are shown, the ones that the user have knowledge of. -->
     <div class="chosenInstruments">
       <h4>Chosen instruments</h4>
       <div v-if="showGuitar" class="chosenGuitarVisible">
@@ -93,6 +100,7 @@ import Navbar from '../components/Navbar.vue'
 import getUser from '../composables/getUser'
 import Button from '../components/Button.vue'
 
+// Here we use data instead of setup because there were issues with using the v-if checks when using setup composition API. Data made it alot easier.
 export default {
   data() {
     return {
@@ -108,6 +116,7 @@ export default {
     }
   },
    components: { Navbar, Button },
+  //  Here are the different methods that will switch the value of the boolean variables regarding the instruments from true to false and back again.
    methods: {
      switchGuitar() {
        this.showGuitar = !this.showGuitar
@@ -131,11 +140,6 @@ export default {
        this.showTrumpet = !this.showTrumpet
      },
    },
-   computed: {
-     checkValue : function() {
-       return this.showGuitar
-     }
-   }
 
 }
 </script>
@@ -189,7 +193,7 @@ input, select {
   display: flex;
   margin: 100px auto;
   background: white;
-  text-align: left;
+  text-align: center;
   padding: 40px;
   border-radius: 10px;
   color: #aaa;
@@ -197,8 +201,9 @@ input, select {
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.05);
   float: right;
 }
-.instrumentsForm {
+.instrumentsContainer {
   display: grid;
+  
 }
 .availableinstruments {
   flex-direction: row;
