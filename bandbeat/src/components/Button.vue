@@ -1,6 +1,7 @@
 <template>
+<!-- This is the button component that will be a generic button for the whole website. -->
   <button class="button">
-      <slot>Login</slot>
+      <slot></slot>
   </button>
 </template>
 

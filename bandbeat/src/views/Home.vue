@@ -1,8 +1,11 @@
 <template>
+<!-- This is the home view that's the "welcome" view when visiting the website. -->
+<div class="backPic">
   <div class="home">
     <div class="logo">
       <h1 @click="redirect">BandBeat</h1>
     </div>
+  </div>
   </div>
 </template>
 
@@ -11,6 +14,7 @@
 export default {
   name: 'Home',
   components: {},
+  // We use a method that's in the h1 element, which will redirect the visitor to the Login view.
   methods: {
     redirect() {
       this.$router.push({ name: 'Login'})
@@ -20,20 +24,20 @@ export default {
 </script>
 
 <style>
-body {
-  background-image: url('../assets/mainbackground.jpg');
+.backPic {
+  background-image: url('../assets/notesbackground.jpg');
   background-size: 100%;
   background-attachment: fixed;
 }
 .logo h1{
-  background: #FFFFFF;
+  background: hsl(27, 37%, 51%);
   opacity: 67%;
   padding: 10px;
   border-radius: 10px;
   margin: 350px auto;
   max-width: 200px;
   cursor: pointer;
-  color: #444;
+  color: rgb(2, 1, 1);
 }
 .logo h1:hover{
   background: #ddd;
